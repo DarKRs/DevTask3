@@ -14,7 +14,7 @@ namespace DevTask3
         public void Setup()
         {
             // Local Selenium WebDriver
-            driver = new ChromeDriver("C:\\");
+            driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
         }
 
@@ -36,6 +36,7 @@ namespace DevTask3
             //Assert.Pass();
         }
 
+        //ѕроверка раздела "GeoMeta"
         [Test]
         public void CheckGeoMeta()
         {
@@ -43,19 +44,41 @@ namespace DevTask3
             Assert.NotNull(driver.FindElement(By.XPath("//*[text()=\"GeoMeta\"]")));
 
         }
-       
+
+        //ѕроверка раздела "√осударственна€ система обеспечени€ градостроительной де€тельности"
         [Test]
         public void CheckGosSytem()
         {
             driver.Url = "https://gemsdev.ru/geometa/";
-            var a = driver.FindElement(By.XPath("//section[text()=\"√осударственна€ система обеспечени€ градостроительной де€тельности\"]"));
-            Assert.NotNull(driver.FindElement(By.XPath("//*[text()=\"√осударственна€ система обеспечени€ градостроительной де€тельности\"]")));
+            var section = driver.FindElement(By.CssSelector("body > section.gos-system.bg_circle"));
+            Assert.NotNull(section.FindElement(By.XPath("//*[text()=\"√осударственна€ система обеспечени€ градостроительной де€тельности\"]")));
+            Assert.That("https://xn--c1aaceme9acfqh.xn--p1ai/", Is.EqualTo(section.FindElement(By.TagName("a")).GetAttribute("href")));
+        }
 
+        //ѕроверка раздела "√ородска€ аналитика"
+        [Test]
+        public void CheckAnalitics()
+        {
+            driver.Url = "https://gemsdev.ru/geometa/";
+            Assert.NotNull(driver.FindElement(By.XPath("//*[text()=\"√ородска€ аналитика\"]")));
+
+        }
+
+        //ѕроверка "ƒругих проектов"
+        [Test]
+        public void CheckOther()
+        {
+            driver.Url = "https://gemsdev.ru/geometa/";
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(100, document.body.scrollHeight)");
+            var section = driver.FindElement(By.CssSelector("body > section.other-products.bg_circle"));
+            Assert.NotNull(section.FindElement(By.XPath("//*[text()[contains(.,\"наши продукты\")]]")));
         }
 
         [TearDown]
         public void close_Browser()
         {
+            driver.Close();
             driver.Quit();
         }
     }
