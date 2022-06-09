@@ -13,7 +13,6 @@ namespace DevTask3
         [SetUp]
         public void Setup()
         {
-            // Local Selenium WebDriver
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
         }
