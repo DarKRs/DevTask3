@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevTask3._1
+namespace DevTask3
 {
-    internal static class Calc
+    public static class Calc
     {
+        
         /// <summary>
         /// Вычисление корней с помощью дискриминанта
         /// </summary>
@@ -18,7 +19,7 @@ namespace DevTask3._1
         public static (double?,double?) QuadEquation(double a,double b,double c)
         {
             double D = Math.Pow(b,2) - 4 * a * c;
-            return D >= 0 ? ((-b + Math.Sqrt(D)) / (2 * a), (-b - Math.Sqrt(D)) / (2 * a)) : (null,null);
+            return D >= 0 ? (Math.Round((-b - Math.Sqrt(D)) / (2 * a),3), Math.Round((-b + Math.Sqrt(D)) / (2 * a),3)) : (null,null);
         }
     }
 }

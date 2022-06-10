@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DevTask3._1 
+namespace DevTask3
 {
     internal class Program
     {
